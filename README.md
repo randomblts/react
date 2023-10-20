@@ -4,10 +4,10 @@
   _.|o o  |_   ) )
 -(((---(((--------  
 ```
-### 00. Use functional component
-`Functional component` was introduced in React 16.8. It is the preferred way to write React component (as opposed to older class component). 
+### 00. Use function component
+`Function component` was introduced in React 16.8. It is the preferred way to write React component (as opposed to older class component). 
 It is more maintainable, modern and concise. Plus you can leverage `React Hooks` which makes it easier to manage states and instead of dealing lifecycle, it uses state (data flow). 
-All the new effort is focus in functional ways so `class component` will be slowly deprecated. 
+All the new effort is focus in functional ways so `class component` will be slowly deprecated. Note that function component is designed to work well with new `React concurrent mode`. More on that later.
 
 ### 01. Bootstrapping with ReactDOM
 In React, one of the initial APIs you'll come across is `ReactDOM`, which plays a key role in rendering your application. ReactDOM provides two main methods: render for client-side rendering and hydrate for handling server-side rendered content. These APIs facilitate the initial rendering and the subsequent reconciliation process in your React application.
@@ -39,10 +39,9 @@ graph TD
 ### 02. Virtual DOM
 The `Virtual DOM`, a key concept in React, serves as a lightweight, in-memory mirror of the actual Document Object Model (DOM) and the current state of your user interface. It's represented as JavaScript objects, and React leverages it for performance optimization.
 
-React employs the Virtual DOM to enhance updates by employing a process called "diffing." It calculates the disparities between the new Virtual DOM tree and the one generated during the previous render. This method is commonly referred to as "reconciliation."
+React employs the Virtual DOM to enhance updates by employing a process called "diff-ing." It calculates the disparities between the new Virtual DOM tree and the one generated during the previous render. This method is commonly referred to as "reconciliation."
 
-This approach is designed to be efficient. It targets and applies changes only to the portions of the Virtual DOM tree that differ from the previous version, minimizing interactions with the real HTML DOM. This is essential for improving performance since direct manipulation of the HTML DOM can be sluggish and resource-intensive.
-It calculates the differences between these two virtual representations. This process is known as "reconciliation."
+This approach is designed to be efficient. It targets and applies changes only to the portions of the Virtual DOM tree that differ from the previous version, minimizing interactions with the real HTML DOM. This is essential for improving performance since direct manipulation of the HTML DOM can be sluggish and resource-intensive. Prior to 2016, React is using `Stack reconciliation`, after that, react uses `fiber reconciliation`. More on that later.
 
 ```mermaid
 graph TD
