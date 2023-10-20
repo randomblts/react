@@ -58,9 +58,9 @@ JSX is a convenient syntax for defining the structure and content of your React 
 - `ReactDOM.render(element, document.getElementById("root"));   // React render` to
 - `<body id='root'><h2>Hello, Lenny!</h2></body>` (HTML tree)
 
-In this example, it may not seem like JSX provides a significant advantage. In practical scenarios, you can create self-contained components, like a "Wallet," with their own HTML structure and behavior, which can be easily reused throughout your application. In standard HTML, this level of encapsulation isn't readily achievable. To attain such encapsulation, you would need to utilize "shadow DOM," a relatively recent feature. While conceptually similar to JSX, there's a notable distinction: shadow DOM operates directly on the real DOM, whereas JSX serves as a logical construct that interfaces with the Virtual DOM, residing in JavaScript memory.
+In this example, it may not seem like JSX provides a significant advantage. In practical scenarios, you can create self-contained components, like a "Wallet," with their own HTML structure and behavior, which can be easily reused throughout your application. 
 
-The key takeaway here is that shadow DOM enables you to create reusable and encapsulated components that are conceptually akin to those constructed with JSX but have a direct impact on the actual Document Object Model, offering a new level of modularity and isolation.
+In standard HTML, this level of encapsulation isn't readily achievable. To attain such encapsulation, you would need to utilize `shadow DOM`, a relatively recent feature in HTML standard. While conceptually similar to JSX, there's a notable distinction: shadow DOM operates directly on the real DOM, whereas JSX serves as a logical construct that interfaces with the Virtual DOM, residing in JavaScript memory.
 
 ### 04. React tools
 These are some must have tools for React.
@@ -205,7 +205,7 @@ stateDiagram
     Rejected --> [*] : Transition to pending
 ```
 
-### 11. React Fragment
+### 11. React Fragments
 Before the introduction of `React Fragments`, when you had multiple sibling components like `<Component1/><Component2/><Component3/>`, React required that you return a single root node from a function component. To work around this limitation, developers often used a `<div>` as a wrapping root element. However, this approach came with downsides such as bloated hierarchy, longer tree construction times, event propagation complexity, and increased property inheritance costs in the HTML DOM.
 
 ```javascript
@@ -325,7 +325,7 @@ return(<>
 ' <' `\ ._/'\
    `   \     \
 ```
-### 16. useState with Object
+### 16. useState with Javascript object
 You can use useState for object as well. Imagine this code. You can reference to the property of object for rendering. However, please note that we need to create a new object whenever we setUser.
 When updating state variables that are objects or arrays, it's important to create a new object or array to trigger a re-render. React relies on shallow comparison to determine if state has changed.
 This means `name` and `id` is always coupled together in the rendering cycle.
@@ -449,6 +449,7 @@ function calculateFactorial(n) {
   return n * calculateFactorial(n - 1);
 }
 ```
+Similar to useMemo, `useCallback` is use to memoize functions instead of state.
 
 ### 22. More on useEffect
 No.13 talk about different use of `useEffect` to mimic React class lifecycle. The thing to take note is `useEffect` should only be used if there's a side-effect with some data state change that you want to synchronize with.
@@ -485,7 +486,7 @@ export default useUniqueId;
      |//YY \|/
      |||   |||
 ```
-### 24. Passing Children to a component
+### 24. Passing children to a component
 Passing children is straigt-forward, use ReactNode as the type.
 
 ```javascript
@@ -518,6 +519,7 @@ function App() {
 
 ### 25. What is useRef
 `useRef` is a hook in React that creates a mutable object called a "ref object." It acts as a reference to a HTML DOM element or to a value that persists across renders.
+
 The primary purpose of useRef is to provide mutable data that doesn't cause re-renders when it changes. This makes it useful for managing values that need to be updated without causing a component to re-render. In the code below, useRef is creating a reference & later use it to hold input HTML element to control it.
 
 ```javascript
@@ -538,6 +540,7 @@ function Component() {
   );
 }
 ```
+
 ### 26. What is React.forwardRef
 `React.forwardRef` allows a component to create an empty `ref` and pass it down to a child component for child component to set it to a value or HTML DOM element. That empty `ref` in the
 parent code can access and control the attached `ref` later.
@@ -616,23 +619,24 @@ function Parent() {
 
 ### 29. React Build process
 Ever wonder what happen when you run `npm run build` or `yarn build`. There's a whole lot of tasks being executed:
-- `clean build folder`
-- `linting (eg. eslint static analysis)`
-- `transpilation`
-  - `typescript to javascript`
-  - `scss / sass to css`
-  - `jsx to javascript (React.createElement)`
-  - `babel to lower end browser`
-- `Treeshaking (removed unused code)`
-- `HTML template expansion`
-- `Asset optimization`
-  - `Image Optimization (eg. PNG to 24 bits, resize, format)`
-  - `Remove styles from CSS`
-- `Minification of Javascript / CSS`
-- `Webpack`
-  - `module bundling for code splitting`
-  - `service worker generation for version caching`
-- `Version bumping` to the bundle
+
+- Clean build folder
+- Linting (eg. eslint static analysis)
+- Transpilation
+  - typescript to javascript
+  - scss / sass to css
+  - jsx to javascript (React.createElement)
+  - babel to lower end browser
+- Treeshaking (removed unused code)
+- HTML template expansion
+- Asset optimization
+  - Image Optimization (eg. PNG to 24 bits, resize, format)
+  - Remove styles from CSS
+- Minification of Javascript / CSS
+- Webpack
+  - module bundling for code splitting
+  - service worker generation for version caching
+- Version bumping to the bundle
 
 ```
         _   ,_,   _
