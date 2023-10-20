@@ -206,7 +206,7 @@ stateDiagram
 ```
 
 ### 11. React Fragment
-Before the introduction of `React Fragments`, when you had multiple sibling components like `<Component1/><Component2/><Component3/>`, React required that you return a single root node from a functional component. To work around this limitation, developers often used a `<div>` as a wrapping root element. However, this approach came with downsides such as bloated hierarchy, longer tree construction times, event propagation complexity, and increased property inheritance costs in the HTML DOM.
+Before the introduction of `React Fragments`, when you had multiple sibling components like `<Component1/><Component2/><Component3/>`, React required that you return a single root node from a function component. To work around this limitation, developers often used a `<div>` as a wrapping root element. However, this approach came with downsides such as bloated hierarchy, longer tree construction times, event propagation complexity, and increased property inheritance costs in the HTML DOM.
 
 ```javascript
 // before
@@ -259,8 +259,8 @@ const MyButton = styled.button`
 // code can call setTheme(blueTheme) and theme will change.
 ```
 
-### 13. Functional & class component mapping
-While we know we should be using functional component, it is good to know how to map the lifecycle of class component over to functional component:
+### 13. Function & class component mapping
+While we know we should be using function component, it is good to know how to map the lifecycle of class component over to function component:
 
 - componentDidMount
 ```javascript
@@ -462,7 +462,7 @@ You do need Effects to synchronize with external systems. For example, you can w
 
 
 ### 23. Custom Hook
-A custom hook in React is a JavaScript function that starts with the prefix "use" and follows the rules of the Hooks API. Custom hooks allow you to extract and reuse stateful logic in functional components, making your code more modular and easier to maintain. To consume this custom hook, just call `const id = useUniqueId()`.
+A custom hook in React is a JavaScript function that starts with the prefix "use" and follows the rules of the Hooks API. Custom hooks allow you to extract and reuse stateful logic in function components, making your code more modular and easier to maintain. To consume this custom hook, just call `const id = useUniqueId()`.
 
 
 ```javascript
@@ -704,8 +704,8 @@ Concurrent rendering also allows React to prioritize different parts of the UI. 
 
 To ensure your application works well with concurrent mode, do this:
 
-- Use functional components: Fiber is designed to work best with functional components. Functional components are simpler and easier to reason about than class components, and they make it easier for React to perform concurrent rendering.
-- Use hooks. Hooks are a new feature in React that allows you to use state and other features of class components in functional components. Hooks can be used to implement complex functionality, but they are also very efficient and easy to use.
+- Use function components: Fiber is designed to work best with function components. Function components are simpler and easier to reason about than class components, and they make it easier for React to perform concurrent rendering.
+- Use hooks. Hooks are a new feature in React that allows you to use state and other features of class components in function components. Hooks can be used to implement complex functionality, but they are also very efficient and easy to use.
 - Avoid unnecessary re-renders: React is very good at optimizing re-renders, but it is still important to avoid unnecessary re-renders. You can do this by using PureComponent, memo, and useCallback.
 - Use React Suspense. React Suspense allows you to render fallback content while waiting for data to load. This can help to improve the perceived performance of your application.
 - Use StrictMode. The Strict Mode can help you identify potential performance problems during development which you can address.
