@@ -703,12 +703,28 @@ React uses `unidirectional data flow`. It refers to the practice of controlling 
 
 This allows for clear and predictable communication between components.
 
-### 33. React Concurrent Mode & Fiber
+### 33. React Concurrent Mode & fiber
 `Concurrent Mode` is based on a new rendering algorithm called concurrent rendering. `Concurrent rendering` allows React to work on multiple versions of the UI at the same time. This is done by breaking down the UI into smaller chunks, and then rendering each chunk in parallel. Smaller chunk is good for the UI thread since it less likely to block. This makes it possible to build more responsive and performant React applications.
 
-`React Fiber` is the new rendering algorithm. Fiber works by breaking down the UI into smaller chunks, which are called fibers. Fibers can be paused, resumed, and prioritized. This allows React to work on multiple tasks at once, without blocking the main thread. Concurrent Mode uses Fiber to render multiple versions of the UI at the same time. For example, if a user is typing in a text input, React will render a new version of the UI with each keystroke. However, React will not block the main thread while it is rendering the new UI. This allows the user to continue typing, even while the UI is updating.
+`React Fiber` is the new rendering algorithm. Fiber works by breaking down the UI into smaller chunks, which are called fibers. Fibers can be paused, resumed, and prioritized. This allows React to work on multiple tasks at once, without blocking the main thread. Concurrent Mode uses Fiber to render multiple versions of the UI at the same time. 
 
-Concurrent rendering also allows React to prioritize different parts of the UI. For example, if a user is scrolling through a list, React will prioritize rendering the items that are currently visible on the screen. This helps to ensure that the UI remains smooth and responsive, even while it is rendering a large number of items.
+Overall the algorithm is using 2 phases.
+- Phase 1 (render / reconciliation)
+  - this phase is interruptable
+  - building up new WIP fiber tree.
+  - doing the work with `requestIdleCallback` which is a callback from Main thread when they are free and for how long (eg. 10ms)
+  - the algorithm will use time allocate to work on the new fiber tree like:
+    - cloning current fiber tree or current sub-tree (if nothing changed)
+    - checking update queue (eg. setState will add to the update queue)
+    - tagging any node that needs change in DOM tree. This list of tags is called `effect list`.
+    - Sticking to the time allocated, it will get a consistent `work loop`. If the phase 1 is not completed, it will be paused and resume in the next `requestIdleCallback`.
+    - When all the work is completed, it will tag `HostRoot` element as `pendingCommit`.
+- Phase 2 (commit)
+  - this phase is not interruptable or synchronous. Otherwise, you will get inconsistent UI in DOM.
+  - goes thru all the `effect list` (which is stuffs that need change in DOM).
+  - when everything is completed, WIP tree is the new current tree.
+  - finish commit phase and update DOM.
+
 
 To ensure your application works well with concurrent mode, do this:
 
