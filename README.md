@@ -710,7 +710,7 @@ This allows for clear and predictable communication between components.
 
 Overall the algorithm is using 2 phases.
 - Phase 1 (render / reconciliation)
-  - this phase is interruptable
+  - this phase is interruptable or asynchronous.
   - building up new WIP fiber tree.
   - doing the work with `requestIdleCallback` which is a callback from Main thread when they are free and for how long (eg. 10ms)
   - the algorithm will use time allocate to work on the new fiber tree like:
