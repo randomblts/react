@@ -53,14 +53,15 @@ graph TD
 ### 03. JSX
 JSX is a convenient syntax for defining the structure and content of your React components. It's transpiled (at build time) into JavaScript code that creates React elements, which are then rendered into the HTML DOM to display your user interface.
 
+Here's a simple transformation from `JSX` to `HTML`:
 - `const element = <h2>Hello, Lenny!</h2>;  // JSX` to
 - `const element = React.createElement("h2", null, "Hello, Lenny!");  // Javascript` to
 - `ReactDOM.render(element, document.getElementById("root"));   // React render` to
 - `<body id='root'><h2>Hello, Lenny!</h2></body>` (HTML tree)
 
-In this example, it may not seem like JSX provides a significant advantage. In practical scenarios, you can create self-contained components, like a "Wallet," with their own HTML structure and behavior, which can be easily reused throughout your application. 
+In this example, it may not seem like JSX provides a significant advantage. In practical scenarios, you can create self-contained logical components, like a "Wallet," with their own HTML structure and behavior, which can be easily reused throughout your application. 
 
-In standard HTML, this level of encapsulation isn't readily achievable. To attain such encapsulation, you would need to utilize `shadow DOM`, a relatively recent feature in HTML standard. While conceptually similar to JSX, there's a notable distinction: shadow DOM operates directly on the real DOM, whereas JSX serves as a logical construct that interfaces with the Virtual DOM, residing in JavaScript memory.
+In standard HTML, this level of encapsulation isn't readily achievable. To attain such encapsulation, you would need to utilize `shadow DOM`, a relatively recent addition in HTML standard. While conceptually similar to JSX, there's a notable distinction: shadow DOM operates directly on the real DOM, whereas JSX serves as a logical construct that interfaces with the Virtual DOM, residing in JavaScript memory.
 
 ### 04. React tools
 These are some must have tools for React.
