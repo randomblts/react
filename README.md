@@ -39,9 +39,9 @@ graph TD
 ### 02. Virtual DOM
 The `Virtual DOM`, a key concept in React, serves as a lightweight, in-memory mirror of the actual Document Object Model (DOM) and the current state of your user interface. It's represented as JavaScript objects, and React leverages it for performance optimization.
 
-React employs the Virtual DOM to enhance updates by employing a process called "diff-ing." It calculates the disparities between the new Virtual DOM tree and the one generated during the previous render. This method is commonly referred to as "reconciliation."
+React employs the Virtual DOM to enhance updates by employing a process called `reconciliation`. It calculates the disparities between the new Virtual DOM tree and the one generated during the previous render. 
 
-This approach is designed to be efficient. It targets and applies changes only to the portions of the Virtual DOM tree that differ from the previous version, minimizing interactions with the real HTML DOM. This is essential for improving performance since direct manipulation of the HTML DOM can be sluggish and resource-intensive. Prior to 2016, React is using `Stack reconciliation`, after that, react uses `fiber reconciliation`. More on that later.
+This approach is designed to be efficient. It targets and applies changes only to the portions of the Virtual DOM tree that differ from the previous version, minimizing interactions with the real HTML DOM. This is essential for improving performance since direct manipulation of the HTML DOM can be sluggish, resource-intensive & triggers a whole set of work like layout, property inheritance etc. Prior to 2016, React is using `Stack reconciliation`, after that, react uses `fiber reconciliation`. More on that later.
 
 ```mermaid
 graph TD
