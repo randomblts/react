@@ -734,3 +734,25 @@ To ensure your application works well with concurrent mode, do this:
 - Use React Suspense. React Suspense allows you to render fallback content while waiting for data to load. This can help to improve the perceived performance of your application.
 - Use StrictMode. The Strict Mode can help you identify potential performance problems during development which you can address.
 
+### 34. MVVM Pattern for application
+- The Model represents the data and business logic of your application. In a React application, your data models are typically JavaScript objects or classes that hold the data. These models might also include methods for interacting with the data, like fetching data from an API. Transformer will be
+used to transform part of the model into various ViewModels.
+
+- ViewModel acts as an intermediary between the Model and the View. It contains the logic for preparing and formatting the data to be displayed in the View. In React, you can think of the ViewModel as a container or controller that connects the data from the Model to the View. It can also manage the state and logic that's not directly related to rendering.
+
+- View is primarily represented by components. Components render the UI and present the data to the user. In the MVVM pattern, the View should be as dumb as possible and should focus solely on rendering the UI and handling user interactions. Each component will have ViewModel assigned to populate the component.
+
+```mermaid
+sequenceDiagram
+participant API endpoint
+participant Model
+participant View Model
+participant View
+API endpoint-->>Model:return from APIs
+Model-->>View Model:Transform
+View Model->>View:set and bind to multiple views or components
+View->>View Model:event (change state)
+View Model-->>Model:update local model
+Model-->>API endpoint:updating API (if needed)
+
+```
