@@ -805,7 +805,9 @@ There are a few common ways to make network API. Here are the some libraries:
 - `fetch`
   - Built into HTTP standard, there's no need to import an external package.
   - Cancellable with `abortController`.
-  - Simple API usage.
+  - Simple API usage but very basic functionality.
+  - Triggers HTTP pre-flighting `OPTIONS` check by default.
+    
 ```javascript
   const abortController = new AbortController();
 
@@ -841,6 +843,7 @@ There are a few common ways to make network API. Here are the some libraries:
   - Very popular & simple to understand network API.
   - Convinient defaults such as auto set request header, automation transformation of JSON & interceptor.
   - Use cancel token to cancel request.
+  - Does not trigger pre-flighting.
   - It is external. Need to install `npm install axios`.
     
 ```javascript
@@ -873,3 +876,29 @@ There are a few common ways to make network API. Here are the some libraries:
   }, []);
 ```
 
+- `useQuery` for both GraphQL or REST
+  - Even higher abstraction than `axios`.
+  - First class when working with GraphQL endpoint.
+  - Includes caching, automatic re-query, invalidation of cache.
+  - Supports Server-side rendering such as data fetching `getDataFromTree`.
+  - It is external. Need to install `npm install @apollo/client`.
+ 
+```javascript
+import { useQuery } from '@apollo/client';
+import { AppQuery } from './graphqlQueries';
+
+function Component() {
+  // Use the useQuery hook with your query
+  const { loading, error, data } = useQuery(AppQuery);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h1>My Data</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
