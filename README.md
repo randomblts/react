@@ -798,3 +798,78 @@ Looking at the placement of `console.log` in the code above, you can use it for 
   - This is only called once per component instance.
 - inside return() of useEffect
   - This is called once per component instance when it unmount.
+
+### 36. Common ways of making network API call
+There are a few common ways to make network API. Here are the some libraries:
+
+- `fetch`
+  - Built into HTTP standard, there's no need to import an external package.
+  - Cancellable with `abortController`.
+  - Simple API usage.
+```javascript
+  const abortController = new AbortController();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://<endpoint>', {
+          signal: abortController.signal,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const jsonData = await response.json();
+        ...
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          console.log('Request was canceled');
+        } else {
+          setError(err.message);
+        }
+      }
+    };
+    fetchData();
+
+    // Cleanup function to cancel the request when the component unmounts
+    return () => {
+      abortController.abort();
+    };
+  }, []);
+```
+
+- `axios`
+  - Very popular & simple to understand network API.
+  - Convinient defaults such as auto set request header, automation transformation of JSON & interceptor.
+  - Use cancel token to cancel request.
+  - It is external. Need to install `npm install axios`.
+    
+```javascript
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://<endpoint>', {
+          cancelToken: source.token,
+        });
+
+        setData(response.data);
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log('Request was canceled:', err.message);
+        } else {
+          setError(err.message);
+        }
+      }
+    };
+
+    fetchData();
+
+    // Cleanup function to cancel the request when the component unmounts
+    return () => {
+      source.cancel('Request canceled due to component unmounting');
+    };
+  }, []);
+```
+
