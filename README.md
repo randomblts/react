@@ -756,3 +756,45 @@ View Model-->>Model:update local model
 Model-->>API endpoint:updating API (if needed)
 
 ```
+
+### 35. Different places for initialization
+Consider the following function component code:
+```javascript
+import { useEffect } from "react";
+
+console.log(`like static contructor`)
+
+export const Component = ({count}) => {
+    console.log(`render`)
+    
+    useEffect(()=>{
+        console.log(`like constructor`)
+
+        return () => {
+            console.log('Unmounting component');
+        };
+    }, [])
+    return (<div>Component {count}</div>);
+
+
+}
+
+----
+From parent:
+<Component count={data}/>
+<Component count={data+1}/>
+
+```
+
+Looking at the placement of `console.log` in the code above, you can use it for the following purpose:
+
+- outside of the component
+  - `<Component/>` is being created multiple times but `like static constructor` is only called once.
+  - This behavior is similar to static constructor.
+  - This is called once for all component instances.
+- inside component
+  - This will be called everything component renders.
+- inside useEffect with [] dependency
+  - This is only called once per component instance.
+- inside return() of useEffect
+  - This is called once per component instance when it unmount.
