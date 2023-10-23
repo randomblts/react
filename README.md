@@ -637,6 +637,7 @@ Ever wonder what happen when you run `npm run build` or `yarn build`. There's a 
   - Image Optimization (eg. PNG to 24 bits, resize, format)
   - Remove styles from CSS
 - Minification of Javascript / CSS
+- Creation of source map for production issue debugging
 - Webpack
   - module bundling for code splitting
   - service worker generation for version caching
