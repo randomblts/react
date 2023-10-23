@@ -757,7 +757,7 @@ Model-->>API endpoint:updating API (if needed)
 
 ```
 
-### 35. Different places for initialization
+### 35. Different places to run code
 Consider the following function component code:
 ```javascript
 import { useEffect } from "react";
@@ -796,8 +796,10 @@ Looking at the placement of `console.log` in the code above, you can use it for 
   - This will be called everything component renders.
 - inside useEffect with [] dependency
   - This is only called once per component instance.
+  - Note that this useEffect will only run *after* the component renders.
 - inside return() of useEffect
   - This is called once per component instance when it unmount.
+  - Good place to do cleaning of resources such as timer or cancel network request.
 
 ### 36. Common ways of making network API call
 There are a few common ways to make network API. Here are the some libraries:
