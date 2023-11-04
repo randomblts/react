@@ -263,6 +263,8 @@ const MyButton = styled.button`
 // code can call setTheme(blueTheme) and theme will change.
 ```
 
+Another to access theme props is using `useContext` because `ThemeProvider` is a Provider. As long as your component is within the provider, you can access them.
+
 ### 13. Function & class component mapping
 While we know we should be using function component, it is good to know how to map the lifecycle of class component over to function component:
 
